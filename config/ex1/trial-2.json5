@@ -1,0 +1,74 @@
+
+// <LICENSE id="CC BY 4.0">
+//
+//   Image-Render Workspace 'examples'
+//   Copyright 2022 Robert Bosch GmbH and its subsidiaries
+//   
+//   This work is licensed under the 
+//   
+//       Creative Commons Attribution 4.0 International License.
+//   
+//   To view a copy of this license, visit 
+//       http://creativecommons.org/licenses/by/4.0/ 
+//   or send a letter to 
+//       Creative Commons, PO Box 1866, Mountain View, CA 94042, USA.
+//   
+//
+// </LICENSE>
+{
+    sDTI: "/catharsys/trial:1.0",
+    sId: "${rel-path-config}",
+    
+    xRandomSeed: 1,
+
+    sManifestFile: "manifest",
+
+    __locals__: {
+        sBlenderFilename: "Empty",
+    },
+
+    mGui: {
+        "sDTI": "/catharsys/gui/settings:1.0",
+        "bShowAllVars": true,
+        "mVars": {
+            // All elements of the 'mConfigs' block should be
+            // selection controls. Multiple selection is enabled automatically.
+            "mod": {
+                "sDTI": "gui/control/select/str:1",
+                "sLabel": "Modifications",
+                "sTooltip": "Select a set of modifications",
+                "lOptions": ["modify/ex1", "modify/ex2" ],
+            },
+            "sBlenderFilename": {
+                "sDTI": "gui/control/select/str:1",
+                "sLabel": "Blender Base File",
+                "sTooltip": "Select a Blender base file",
+                "lOptions": ["Empty", "Basic_01"],    
+                "bMultiple": false,           
+            },
+
+        },
+    },
+
+    mConfigs: {
+        render: ["render"],
+        // Even though we do not need it for the generation of a new Blender file,
+        // we must specify a capture config and a camera name.
+        // The camera also must be present in the source Blender file,
+        // referenced in the "mBlender" block below.
+        cap: ["capture"],
+        cam: ["Cam.Pano.Std.Test_120deg_48KP"],
+        loop_x: ["loop/rand-x" ],
+        loop_y: ["loop/rand-y" ],
+        mod: ["modify/ex1", "modify/ex2" ],
+
+        depth: ["depth"],
+    },
+
+    mBlender: {
+        sDTI: "/catharsys/trial/blender:1.0",
+        sBlenderFile: "${path-workspace}/blend/$sBlenderFilename.blend",
+    }
+}
+
+

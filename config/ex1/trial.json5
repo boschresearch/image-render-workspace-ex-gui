@@ -22,6 +22,38 @@
     xRandomSeed: 1,
 
     sManifestFile: "manifest",
+
+    __globals__: {
+        sAssetPath: "~/my_assets",
+    },
+
+    __locals__: {
+        sBlenderFilename: "Empty",
+    },
+
+    mGui: {
+        "sDTI": "/catharsys/gui/settings:1.0",
+        "bShowAllVars": true,
+        "mVars": {
+            // All elements of the 'mConfigs' block should be
+            // selection controls. Multiple selection is enabled automatically.
+            "mod": {
+                "sDTI": "gui/control/select/str:1",
+                "sLabel": "Modifications",
+                "sTooltip": "Select a set of modifications",
+                "lOptions": ["modify/ex1", "modify/ex2" ],
+            },
+            "sBlenderFilename": {
+                "sDTI": "gui/control/select/str:1",
+                "sLabel": "Blender Base File",
+                "sTooltip": "Select a Blender base file",
+                "lOptions": ["Empty", "Basic_01"],    
+                "bMultiple": false,           
+            },
+
+        },
+    },
+
     mConfigs: {
         render: ["render"],
         // Even though we do not need it for the generation of a new Blender file,
@@ -39,7 +71,7 @@
 
     mBlender: {
         sDTI: "/catharsys/trial/blender:1.0",
-        sBlenderFile: "${path-workspace}/blend/Empty.blend",
+        sBlenderFile: "${path-workspace}/blend/$sBlenderFilename.blend",
     }
 }
 

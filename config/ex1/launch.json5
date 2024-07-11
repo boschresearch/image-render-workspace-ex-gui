@@ -25,6 +25,45 @@
     // Some information what this configuration is for
     sInfo: "Demonstrates randomization via loops",
 
+
+    mGui: { 
+        "sDTI": "/catharsys/gui/settings:1.0",
+        "mGridLayout": {
+            "actions": {
+                "iColumnCount": 2,
+                "lGroups": [
+                    {
+                        "sTitle": "Frames",
+                        "lRows": [
+                            ["iFrameFirst", "iFrameLast"],
+                            ["iFrameStep"]
+                        ]
+                    },
+                    {
+                        "sTitle": "Render",
+                        "lRows": [
+                            ["iRenderQuality", "sBlenderVersion"]
+                        ]
+                    },
+                    {
+                        "sTitle": "Execution",
+                        "lRows": [
+                            ["bDoProcess", "bDoOverwrite"],
+                            ["bDoStoreProcessData"]
+                        ]
+                    },
+                    {
+                        "sTitle": "Configurations",
+                        "lRows": [
+                            ["iConfigStartX", "iConfigCountX"],
+                            ["iConfigStartY", "iConfigCountY"],
+                        ]
+                    }
+                ]
+            }
+        }
+    },
+
     // The default arguments used for all actions.
     // Each action can override these parameters.
     mGlobalArgs: {
@@ -39,52 +78,79 @@
 
         // The name of the trial file to use.
         sTrialFile: "trial",
+        // list of available trial files, to make them selectable via a GUI control
+        lTrialFileOptions: ["trial", "trial-2"],
 
         // The execution configuraion file.
         // IMPORTANT: All file paths are regarded as relative 
         //            to the path of the current file.
         sExecFile: "exec",
 
-        // Index of the first frame to render
+        // The following are Catharsys pre-defined variables 
+        // that are automatically shown in the GUI if not explicitly excluded.
         iFrameFirst: 0,
-
-        // Index of the last frame to render
         iFrameLast: 0,
-
-        // Step between frames
         iFrameStep: 1,
-
-        // For a render action, this determines the number of rays per pixel.
-        // Actions that are dependent on a rendering, use this value to find
-        // the path of the rendered images.
         iRenderQuality: 4,
-
-        // If the 'sTopFolder' is defined, it is used as the top output folder
-        // for all data generation. If it is not defined, the 'iRenderQuality'
-        // parameter is used to create the top folder name.
         // sTopFolder: "test",
-
-        // Flag whether to process the action. If false, configurations are prepared
-        // but the actual processing is not performed.
         bDoProcess: true,
-
-        // Flag whether to overwrite already created data.
-        // If false, processes where the result data is already present are skipped.
         bDoOverwrite: true,
-
-        // Flag whether to store the data the processing is based on. 
-        // For example, for the Blender render action the modified Blender file is
-        // saved just before the actual rendering is initiated.
         bDoStoreProcessData: false,
 
         // //////////////////////////////////////////////////////////////////////////
         // USER DEFINED VARIABLES
+        // These are automatically shown in the GUI 
+        // if they follow the standard naming convention.
+        // See documentation of image-render-gui module for more info.
         iConfigStartX: 1,
         iConfigCountX: 2,
 
         iConfigStartY: 1,
         iConfigCountY: 2,
  
+        sBlenderVersion: "4.1",
+        "sBlenderVersion/gui": {
+            "sDTI": "gui/control/select/str:1",
+            "sLabel": "Blender Version",
+            "sTooltip": "Select the Blender Version to use",
+            "lOptions": ["4.0", "4.1"],    
+            "bMultiple": false,           
+        },
+
+        // if the type of an element cannot be deduced from its' name
+        // you need to define
+        my_value: 2.14,
+        "my_value/gui": {
+            "sDTI": "/catharsys/gui/control/number/float:1.0",
+            // "sLabel": "My Value",
+            "sTooltip": "This is my wonderful value",
+            "fStep": 0.005,
+            "iPrecision": 3,
+            "fMin": -1.0,
+            "fMax": 4.0,
+            "sPrefix": "Length: ",
+            "sSuffix": "cm",
+        },
+
+        pw: "password",
+        "pw/gui": {
+            "sDTI": "gui/control/input:1",
+            "sLabel": "Password",
+            "sTooltip": "Enter a password",
+            "bIsPassword": true,
+            "bTogglePasswordView": true,
+        },
+
+        objects: ["cup"],
+        "objects/gui": {
+            "sDTI": "gui/control/select/str:1",
+            "sLabel": "Object",
+            "sTooltip": "Select a set of objects",
+            "lOptions": ["cup", "tree", "spoon"],
+            "bMultiple": true,
+        },
+
+
     },
 
     // The map of all actions that can be launched
