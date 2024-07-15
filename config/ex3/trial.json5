@@ -1,0 +1,130 @@
+
+// <LICENSE id="CC BY 4.0">
+//
+//   Image-Render Workspace 'examples'
+//   Copyright 2022 Robert Bosch GmbH and its subsidiaries
+//   
+//   This work is licensed under the 
+//   
+//       Creative Commons Attribution 4.0 International License.
+//   
+//   To view a copy of this license, visit 
+//       http://creativecommons.org/licenses/by/4.0/ 
+//   or send a letter to 
+//       Creative Commons, PO Box 1866, Mountain View, CA 94042, USA.
+//   
+//
+// </LICENSE>
+{
+    sDTI: "/catharsys/trial:1.0",
+    sId: "${rel-path-config}",
+    
+    xRandomSeed: 1,
+
+    sManifestFile: "manifest",
+
+    __globals__: {
+        sAssetPath: "${path-workspace}/assets/objects/classes",
+
+        sObject: "Monkey",
+        // Define object names as shown in the GUI selection
+        lObjects: ["Monkey", "Cube", "Cylinder", "Torus"],
+        // Define corresponding object paths for object names
+        mObjPaths: {
+            "Monkey": "$sAssetPath/sculptures/animals/Monkey.obj",
+            "Cube": "$sAssetPath/cubes/cube-01.obj",
+            "Cylinder": "$sAssetPath/cylinders/cylinder-01.obj",
+            "Torus": "$sAssetPath/sculptures/abstract/torus-01.obj",
+        },
+        // Get the object path for the selected object.
+        sObjPath: "${mObjPaths:$sObject}",
+    },
+
+    __locals__: {
+        sBlenderFilename: "Empty",
+    },
+
+    mGui: {
+        "sDTI": "/catharsys/gui/settings:1.0",
+        "bShowAllVars": false,
+        "mVars": {
+            // All elements of the 'mConfigs' block should be
+            // selection controls. Multiple selection is enabled automatically.
+            "mod": {
+                "sDTI": "gui/control/select/str:1",
+                "sLabel": "Modifications",
+                "sTooltip": "Select a set of modifications",
+                "lOptions": ["modify/ex1", "modify/ex2" ],
+            },
+            "cam": {
+                "sDTI": "gui/control/select/str:1",
+                "sLabel": "Cameras",
+                "sTooltip": "Select cameras to render images for",
+                "lOptions": ["Cam.Pano.Std.Test_120deg_48KP", "Cam.Pano.Std.Test_180deg_48KP", "Cam.Pin.Std.53deg_FHD" ],
+            },
+            "sBlenderFilename": {
+                "sDTI": "gui/control/select/str:1",
+                "sLabel": "Blender Base File",
+                "sTooltip": "Select a Blender base file",
+                "lOptions": ["Empty", "Basic_01"],    
+                "bMultiple": false,           
+            },
+            sObject: {
+                "sDTI": "gui/control/select/str:1",
+                "sLabel": "Object",
+                "sTooltip": "Select the object to render",
+                // In GUI definitions you can only reference variables from this file.
+                "lOptions": "$lObjects",
+                "bMultiple": false,
+            },
+
+        },
+        "mGridLayout": {
+            "trial": {
+                "iColumnCount": 2,
+                "lGroups": [
+                    {
+                        "sTitle": "Scenario",
+                        "lRows": [
+                            ["sBlenderFilename"], 
+                        ]
+                    },
+                    {
+                        "sTitle": "Content",
+                        "lRows": [
+                            ["sObject", "cam"],
+                        ]
+                    },
+                    {
+                        "sTitle": "Modify",
+                        "lRows": [
+                            ["mod"],
+                        ]
+                    },
+                ]
+            },
+         },
+    },
+
+    mConfigs: {
+        render: ["render"],
+        // Even though we do not need it for the generation of a new Blender file,
+        // we must specify a capture config and a camera name.
+        // The camera also must be present in the source Blender file,
+        // referenced in the "mBlender" block below.
+        cap: ["capture"],
+        cam: ["Cam.Pano.Std.Test_120deg_48KP"],
+        loop_x: ["loop/rand-x" ],
+        loop_y: ["loop/rand-y" ],
+        mod: ["modify/ex1", "modify/ex2" ],
+
+        depth: ["depth"],
+    },
+
+    mBlender: {
+        sDTI: "/catharsys/trial/blender:1.0",
+        sBlenderFile: "${path-workspace}/blend/$sBlenderFilename.blend",
+    }
+}
+
+

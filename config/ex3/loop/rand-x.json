@@ -31,11 +31,11 @@
 	iStep: 1,
 
 	mIterationConfig: {
-		// In VERSION 2.x of '/catharsys/manifest/control/loop/range' can use '%0' directly, without '$L{%0}'.
+		// In VERSION 2.x of this structure can use '%0' directly, without '$L{%0}'
         sId: "%0",
 		
 		__globals__: {
-			// Create a random number generator using the string "rand-x-%0" as seed
+			// Create a random number generator using the string "rand-x-$L{%0}" as seed
 			rndX: "$rand.generator{rand-x-%0}",
 			// Get a random number using the 'rndX' random generator
 			fX: "$rand.uniform{$rndX, -5, 5}",

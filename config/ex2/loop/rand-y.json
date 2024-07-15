@@ -1,3 +1,4 @@
+
 // <LICENSE id="CC BY 4.0">
 //
 //   Image-Render Workspace 'simple'
@@ -22,8 +23,8 @@
 	sId: "${filebasename}",
 
 	__locals__: {
-		iStart: "${action:args:iConfigStartX}",
-		iCnt: "${action:args:iConfigCountX}"
+		iStart: "${action:args:iConfigStartY}",
+		iCnt: "${action:args:iConfigCountY}"
 	},
 
 	iMin: "${iStart}",
@@ -31,14 +32,14 @@
 	iStep: 1,
 
 	mIterationConfig: {
-		// In VERSION 2.x of '/catharsys/manifest/control/loop/range' can use '%0' directly, without '$L{%0}'.
+		// In VERSION 2.x of this structure can use '%0' directly, without '$L{%0}'
         sId: "%0",
-		
+
 		__globals__: {
-			// Create a random number generator using the string "rand-x-%0" as seed
-			rndX: "$rand.generator{rand-x-%0}",
-			// Get a random number using the 'rndX' random generator
-			fX: "$rand.uniform{$rndX, -5, 5}",
+			// Create a random number generator using the string "rand-y-$L{%0}" as seed
+			rndY: "$rand.generator{rand-y-%0}",
+			// Get a random number using the 'rndY' random generator
+			fY: "$rand.uniform{$rndY, 5, 15}",
 		}
 	}
 }

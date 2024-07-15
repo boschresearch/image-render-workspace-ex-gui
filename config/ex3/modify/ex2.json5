@@ -20,7 +20,7 @@
     sId: "${filebasename}",
     
     __globals__: {
-        fZ: 0,
+        fZ: 1,
     },
 
     // A program modifier allows the execution of modifiers of any type
@@ -46,7 +46,7 @@
                 mGlobals: {
                     sName: "MyLight",
                     fEnergy: 1000,
-                    lPosition: [2, 0, 3],
+                    lPosition: [-2, 0, 3],
                 },
             },
         }},
@@ -60,10 +60,6 @@
             "my-object": [{
                 sDTI: "blender/generate/object/import/obj:1",
 
-                // The location where the object is placed
-                // Variables 'fX' and 'fY' have been defined in the loop configs.
-                lLocation: ["$fX", "$fY", "$fZ"],
-
                 // Switch to enable/disable generator.
                 // This can be helpful for randomized scenarios, where this can be a variable.
                 bEnabled: true,
@@ -75,7 +71,7 @@
                 // The Blender filename from where to load the collection.
                 // You should always load collections from external Blender files,
                 // as this also imports all dependent assets, like materials, image, textures, etc.
-                sFilePath: "${path-workspace}/assets/objects/Monkey.obj",
+                sFilePath: "$sObjPath",
 
                 // You can define the resultant object name
                 sObjectName: "MyObject",
@@ -86,6 +82,9 @@
 
                 // The factor by which the object is scaled
                 fScaleFactor: 2.0,
+
+                // The location where the object is placed
+                lLocation: ["$fX", "$fY", 0],
 
                 // A dictionary describing how the origin of the imported
                 // object should be adapted. If this dictionary is not present,

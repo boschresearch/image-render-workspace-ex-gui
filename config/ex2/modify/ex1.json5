@@ -61,7 +61,6 @@
                 sDTI: "blender/generate/object/import/obj:1",
 
                 // The location where the object is placed
-                // Variables 'fX' and 'fY' have been defined in the loop configs.
                 lLocation: ["$fX", "$fY", "$fZ"],
 
                 // Switch to enable/disable generator.

@@ -23,9 +23,46 @@
     sId: "${filebasename}",
     
     // Some information what this configuration is for
-    sInfo: "Basic GUI Example (click for more info)",
-    // A markdown file with more detailed information
+    sInfo: "GUI Example 2",
     sInfoFile: "info.md",
+
+    mGui: { 
+        "sDTI": "/catharsys/gui/settings:1.0",
+        "mGridLayout": {
+            "actions": {
+                "iColumnCount": 2,
+                "lGroups": [
+                    {
+                        "sTitle": "Frames",
+                        "lRows": [
+                            ["iFrameFirst", "iFrameLast"],
+                            ["iFrameStep"]
+                        ]
+                    },
+                    {
+                        "sTitle": "Render",
+                        "lRows": [
+                            ["iRenderQuality", "sBlenderVersion"]
+                        ]
+                    },
+                    {
+                        "sTitle": "Execution",
+                        "lRows": [
+                            ["bDoProcess", "bDoOverwrite"],
+                            ["bDoStoreProcessData"]
+                        ]
+                    },
+                    {
+                        "sTitle": "Configurations",
+                        "lRows": [
+                            ["iConfigStartX", "iConfigCountX"],
+                            ["iConfigStartY", "iConfigCountY"],
+                        ]
+                    }
+                ]
+            }
+        }
+    },
 
     // The default arguments used for all actions.
     // Each action can override these parameters.
@@ -41,6 +78,8 @@
 
         // The name of the trial file to use.
         sTrialFile: "trial",
+        // list of available trial files, to make them selectable via a GUI control
+        lTrialFileOptions: ["trial", "trial-2"],
 
         // The execution configuraion file.
         // IMPORTANT: All file paths are regarded as relative 
@@ -68,6 +107,49 @@
 
         iConfigStartY: 1,
         iConfigCountY: 2,
+ 
+        sBlenderVersion: "4.1",
+        "sBlenderVersion/gui": {
+            "sDTI": "gui/control/select/str:1",
+            "sLabel": "Blender Version",
+            "sTooltip": "Select the Blender Version to use",
+            "lOptions": ["4.0", "4.1"],    
+            "bMultiple": false,           
+        },
+
+        // if the type of an element cannot be deduced from its' name
+        // you need to define
+        my_value: 2.14,
+        "my_value/gui": {
+            "sDTI": "/catharsys/gui/control/number/float:1.0",
+            // "sLabel": "My Value",
+            "sTooltip": "This is my wonderful value",
+            "fStep": 0.005,
+            "iPrecision": 3,
+            "fMin": -1.0,
+            "fMax": 4.0,
+            "sPrefix": "Length: ",
+            "sSuffix": "cm",
+        },
+
+        pw: "password",
+        "pw/gui": {
+            "sDTI": "gui/control/input:1",
+            "sLabel": "Password",
+            "sTooltip": "Enter a password",
+            "bIsPassword": true,
+            "bTogglePasswordView": true,
+        },
+
+        objects: ["cup"],
+        "objects/gui": {
+            "sDTI": "gui/control/select/str:1",
+            "sLabel": "Object",
+            "sTooltip": "Select a set of objects",
+            "lOptions": ["cup", "tree", "spoon"],
+            "bMultiple": true,
+        },
+
 
     },
 
